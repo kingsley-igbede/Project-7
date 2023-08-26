@@ -114,3 +114,59 @@ In this project, we will implement a tooling website solution which makes access
 
 ![Filesystem lvopt](./images/filesystem-lv-opt.jpg)
 
+15. Create mount points on /mnt directory for the logical volumes as follow:
+
+`sudo mkdir /mnt/apps`
+
+`sudo mkdir /mnt/logs`
+
+`sudo mkdir /mnt/opt`
+
+`ls /mnt/`
+
+![Mount Directories Status](./images/mount-directories-created.jpg)
+
+*Mount lv-apps on /mnt/apps – To be used by webservers*
+
+*Mount lv-logs on /mnt/logs – To be used by webserver logs*
+
+*Mount lv-opt on /mnt/opt – To be used by Jenkins server*
+
+16. Mount logical volumes on the paths
+
+`sudo mount /dev/webdata-vg/lv-apps /mnt/apps`
+
+`sudo mount /dev/webdata-vg/lv-logs /mnt/logs`
+
+`sudo mount /dev/webdata-vg/lv-opt /mnt/opt`
+
+17. Install NFS server, configure it to start on reboot and make sure it is u and running
+
+`sudo yum -y update`
+
+`sudo yum install nfs-utils -y`
+
+`sudo systemctl start nfs-server.service`
+
+`sudo systemctl enable nfs-server.service`
+
+`sudo systemctl status nfs-server.service`
+
+![NFS Server Status](./images/nfs-server-status.jpg)
+
+18. Make sure you set up permission that will allow our Web servers to read, write and execute files on NFS.
+
+`sudo chown -R nobody: /mnt/apps`
+
+`sudo chown -R nobody: /mnt/logs`
+
+`sudo chown -R nobody: /mnt/opt`
+
+`sudo chmod -R 777 /mnt/apps`
+
+`sudo chmod -R 777 /mnt/logs`
+
+`sudo chmod -R 777 /mnt/opt`
+
+`sudo systemctl restart nfs-server.service`
+
