@@ -140,7 +140,7 @@ In this project, we will implement a tooling website solution which makes access
 
 `sudo mount /dev/webdata-vg/lv-opt /mnt/opt`
 
-17. Install NFS server, configure it to start on reboot and make sure it is u and running
+17. Install NFS server, configure it to start on reboot and make sure it is up and running
 
 `sudo yum -y update`
 
@@ -154,7 +154,7 @@ In this project, we will implement a tooling website solution which makes access
 
 ![NFS Server Status](./images/nfs-server-status.jpg)
 
-18. Make sure you set up permission that will allow our Web servers to read, write and execute files on NFS.
+18. Make sure you set up permission that will allow the Web servers to read, write and execute files on NFS.
 
 `sudo chown -R nobody: /mnt/apps`
 
@@ -169,4 +169,17 @@ In this project, we will implement a tooling website solution which makes access
 `sudo chmod -R 777 /mnt/opt`
 
 `sudo systemctl restart nfs-server.service`
+
+19. Check which port is used by NFS and open it using Security Groups (add new Inbound Rule)
+
+`rpcinfo -p | grep nfs`
+
+![NFS ports](./images/NFS-ports.jpg)
+
+*In order for NFS server to be accessible from the client, you must also open the following ports: TCP 111, UDP 111, UDP 2049*
+
+![NFS security groups](./images/nfs-security-groups.jpg)
+
+
+
 
