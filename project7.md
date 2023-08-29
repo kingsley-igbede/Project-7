@@ -180,6 +180,58 @@ In this project, we will implement a tooling website solution which makes access
 
 ![NFS security groups](./images/nfs-security-groups.jpg)
 
+20. Configure access to NFS for clients within the same subnet
+
+`sudo vi /etc/exports`
+
+![NFS cidr editor](./images/nfs-cidr-editor.jpg)
+
+`sudo exportfs -arv`
+
+![NFS exports](./images/nfs-exports.jpg)
+
+21. Restart NFS Server
+
+`sudo systemctl restart nfs-server.service`
+
+
+## Step 2 - Configure The Database Server
+
+1. Install MySQL server
+
+`sudo apt update -y`
+
+`sudo apt upgrade -y`
+
+`sudo apt install mysql-server -y`
+
+![DB Mysql Status](./images/db-mysql-status.jpg)
+
+2. Create a database and name it **tooling**
+
+`sudo mysql`
+
+`create database tooling;`
+
+`show databases;`
+
+![Show Databases](./images/show-databases.jpg)
+
+3. Create a database user and name it **webaccess**
+
+`create user 'webaccess'@'172.31.32.0/20' identified by 'password';`
+
+`grant all privileges on tooling.* to 'webaccess'@'172.31.32.0/20';`
+
+`flush privileges;`
+
+`exit`
+
+![Databases User Status](./images/db-user-status.jpg)
+
+
+## Step 3 - Prepare the Web Servers
+
 
 
 
