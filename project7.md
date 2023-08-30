@@ -275,3 +275,89 @@ In this project, we will implement a tooling website solution which makes access
 
 ![Webserver3 Mount Status](./images/webserver3-mount-status.jpg)
 
+*edit all fstab files for the webservers*
+
+`sudo vi /etc/fstab`
+
+*add following line*
+
+`172.31.36.253:/mnt/apps /var/www nfs defaults 0 0`
+
+![Webserver1 fstab edit](./images/webserver1-fstab-edit.jpg)
+
+![Webserver2 fstab edit](./images/webserver2-fstab-edit.jpg)
+
+![Webserver3 fstab edit](./images/webserver3-fstab-edit.jpg)
+
+6. Install Remi’s repository, Apache and PHP and its dependencies on all three web servers
+
+`sudo yum install httpd -y`
+
+`sudo dnf install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm`
+
+![Webserver1 epel status](./images/webserver1-epel-status.jpg)
+
+![Webserver2 epel status](./images/webserver2-epel-status.jpg)
+
+![Webserver3 epel status](./images/webserver3-epel-status.jpg)
+
+*install RemiRepo*
+
+`sudo dnf install dnf-utils http://rpms.remirepo.net/enterprise/remi-release-8.rpm`
+
+`sudo dnf module reset php`
+
+![Webserver1 reset php](./images/webserver1-reset-php.jpg)
+
+![Webserver2 reset php](./images/webserver2-reset-php.jpg)
+
+![Webserver3 reset php](./images/webserver3-reset-php.jpg)
+
+`sudo dnf module enable php`
+
+![Webserver1 enable php](./images/webserver1-enable-php.jpg)
+
+![Webserver2 enable php](./images/webserver2-enable-php.jpg)
+
+![Webserver3 enable php](./images/webserver3-enable-php.jpg)
+
+`sudo dnf install php php-opcache php-gd php-curl php-mysqlnd`
+
+![Webserver1 php modules](./images/webserver1-php-modules.jpg)
+
+![Webserver2 php modules](./images/webserver2-php-modules.jpg)
+
+![Webserver3 php modules](./images/webserver2-php-modules.jpg)
+
+`sudo systemctl start php-fpm`
+
+`sudo systemctl enable php-fpm`
+
+`sudo setsebool -P httpd_execmem 1`
+
+`sudo systemctl status php-fpm`
+
+![Webserver1 phpfpm status](./images/webserver1-phpfpm-status.jpg)
+
+![Webserver2 phpfpm status](./images/webserver2-phpfpm-status.jpg)
+
+![Webserver3 phpfpm status](./images/webserver3-phpfpm-status.jpg)
+
+7. Verify that Apache files and directories are available on the Web Server in /var/www and also on the NFS server in /mnt/apps. If you see the same files – it means NFS is mounted correctly. You can try to create a new file touch test.txt from one server and check if the same file is accessible from other Web Servers.
+
+`cd /var/www`
+
+`ls`
+
+`cd /mnt/apps`
+
+`ls`
+
+*create a text.txt file in the Webserver1 for confirmation*
+
+`sudo touch test.txt`
+
+![Webserver1 confirmation](./images/webserver-confirmation.jpg)
+
+![NFS Server confirmation](./images/nfsserver-confirmation.jpg)
+
