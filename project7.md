@@ -232,6 +232,46 @@ In this project, we will implement a tooling website solution which makes access
 
 ## Step 3 - Prepare the Web Servers
 
+- [x] From the shared storage solutions, (NFS server and MySQL database), make sure the web servers can serve the same content.
+- [ ] For storing shared files that our Web Servers will use – we will utilize NFS and mount previously created Logical Volume lv-apps to the folder where Apache stores files to be served to the users (/var/www).
 
+### During the next steps we will do following:
 
+- [x] Configure NFS client (this step must be done on all three servers)
+- [ ] Deploy a Tooling application to our Web Servers into a shared NFS folder
+- [ ] Configure the Web Servers to work with a single MySQL database
+
+1. Launch 3 new EC2 instances with RHEL 8 Operating System for the Webservers properly labelled
+
+2. Update all servers
+
+`sudo yum update -y`
+
+3. Install NFS client on all Web Servers
+
+`sudo yum install nfs-utils nfs4-acl-tools -y`
+
+![Webserver1 NFS Utils](./images/webserver1-nfs-utils.jpg)
+
+![Webserver2 NFS Utils](./images/webserver2-nfs-utils.jpg)
+
+![Webserver3 NFS Utils](./images/webserver3-nfs-utils.jpg)
+
+4. Mount /var/www/ and target the NFS server’s export for apps
+
+*First create the folder /var/www/ on all webservers
+
+`sudo mkdir /var/www`
+
+`sudo mount -t nfs -o rw,nosuid 172.31.36.253:/mnt/apps /var/www`
+
+5. Verify that NFS was mounted successfully by running `df -h`. Make sure that the changes will persist on Web Server after reboot:
+
+`df -h`
+
+![Webserver1 Mount Status](./images/webserver1-mount-status.jpg)
+
+![Webserver2 Mount Status](./images/webserver2-mount-status.jpg)
+
+![Webserver3 Mount Status](./images/webserver3-mount-status.jpg)
 
