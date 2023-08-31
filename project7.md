@@ -361,3 +361,113 @@ In this project, we will implement a tooling website solution which makes access
 
 ![NFS Server confirmation](./images/nfsserver-confirmation.jpg)
 
+8. Locate the log folder for Apache on the Web Server and mount it to NFS server’s export for logs. 
+
+`sudo mount -t nfs -o rw,nosuid 172.31.36.253:/mnt/logs /var/log/httpd`
+
+9. Repeat step №5 to make sure the mount point will persist after reboot.
+
+*edit all fstab files for the webservers*
+
+`sudo vi /etc/fstab`
+
+*add following line*
+
+`172.31.36.253:/mnt/logs /var/log/httpd nfs defaults 0 0`
+
+![Webserver1 fstab logs edit](./images/webserver1-fstab-logs-edit.jpg)
+
+![Webserver2 fstab logs edit](./images/webserver2-fstab-logs-edit.jpg)
+
+![Webserver3 fstab logs edit](./images/webserver3-fstab-logs-edit.jpg)
+
+10. Open TCP port 80 on the Web Servers.
+
+11. If you encounter 403 Error – check permissions to your /var/www/html folder and also disable SELinux sudo setenforce 0 on all web servers
+
+`sudo setenforce 0`
+
+*To make this change permanent – open following config file on all webservers*
+
+`sudo vi /etc/sysconfig/selinux`
+
+*then set on all web servers*
+
+`SELINUX=disabled`
+
+![Webserver1 SELinux Disabled](./images/webserver1-selinux-disabled.jpg)
+
+![Webserver2 SELinux Disabled](./images/webserver2-selinux-disabled.jpg)
+
+![Webserver3 SELinux Disabled](./images/webserver3-selinux-disabled.jpg)
+
+12. Restart httpd
+
+`sudo systemctl restart httpd`
+
+![Webserver1 httpd reload](./images/webserver1-httpd-reload-status.jpg)
+
+![Webserver2 httpd reload](./images/webserver2-httpd-reload-status.jpg)
+
+![Webserver3 httpd reload](./images/webserver3-httpd-reload-status.jpg)
+
+13. Fork the tooling source code from Darey.io Github Account to your Github account.
+
+![Forked darey Repo](./images/forked-darey-repo.jpg)
+
+14. Deploy the tooling website’s code to the Webservers. 
+
+*install git on all webservers*
+
+`sudo yum install git -y`
+
+![Webserver1 Git Install](./images/webserver1-git-install.jpg)
+
+![Webserver2 Git Install](./images/webserver2-git-install.jpg)
+
+![Webserver3 Git Install](./images/webserver3-git-install.jpg)
+
+*clone the git repo on the webservers*
+
+`git clone https://github.com/kingsley-igbede/tooling.git`
+
+`ls`
+
+![Webserver1 Git Clone Status](./images/webserver1-git-clone-status.jpg)
+
+![Webserver2 Git Clone Status](./images/webserver2-git-clone-status.jpg)
+
+![Webserver3 Git Clone Status](./images/webserver3-git-clone-status.jpg)
+
+15. Ensure that the html folder from the repository is deployed to /var/www/html
+
+`cd tooling`
+
+`ls`
+
+`cd html`
+
+*move everything in the html directory within the tooling directoy to /var/www/html
+
+`sudo cp -R . /var/www/html/`
+
+`cd /var/www/html/`
+
+`ls`
+
+![Webserver1 html repo deployed](./images/webserver1-htmlrepo-deployed.jpg)
+
+![Webserver2 html repo deployed](./images/webserver2-htmlrepo-deployed.jpg)
+
+![Webserver3 html repo deployed](./images/webserver3-htmlrepo-deployed.jpg)
+
+
+
+
+
+
+
+
+
+
+
