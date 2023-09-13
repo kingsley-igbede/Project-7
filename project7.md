@@ -461,6 +461,31 @@ In this project, we will implement a tooling website solution which makes access
 
 ![Webserver3 html repo deployed](./images/webserver3-htmlrepo-deployed.jpg)
 
+16. Update the website's configuration to connect to the database (in /var/www/html/functions.php file) for all the webservers
+
+`sudo vi functions.php`
+
+17. Install MySQL on all web servers
+
+`sudo yum install mysql`
+
+18. Edit bind address in the database server
+
+`sudo vi /etc/mysql/mysql.conf.d/mysqld.cnf`
+
+![DB Server Bind Address Editt](./images/DBserver-bind-address-edit.jpg)
+
+19. Apply tooling-db.sql script to your database using this command
+
+`cd tooling`
+
+`mysql -h 172.31.42.183 -u webaccess -p tooling < tooling-db.sql`
+
+
+
+
+
+
 
 
 
