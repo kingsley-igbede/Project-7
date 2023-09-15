@@ -473,13 +473,32 @@ In this project, we will implement a tooling website solution which makes access
 
 `sudo vi /etc/mysql/mysql.conf.d/mysqld.cnf`
 
-![DB Server Bind Address Editt](./images/DBserver-bind-address-edit.jpg)
+![DB Server Bind Address Edit](./images/DBserver-bind-address-edit.jpg)
 
 19. Apply tooling-db.sql script to your database using this command
 
 `cd tooling`
 
 `mysql -h 172.31.42.183 -u webaccess -p tooling < tooling-db.sql`
+
+20. On the database server, checkout the databases and the users craeted.
+
+`sudo mysql`
+
+![Database Users](./images/database-users.jpg)
+
+21. Open the website in the browser
+
+`http://51.20.42.143/login.php`
+
+![Login-in Page](./images/login-page.jpg)
+
+![Tooling Page](./images/tooling-page.jpg)
+
+
+
+
+
 
 
 
