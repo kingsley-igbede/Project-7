@@ -13,6 +13,11 @@ We will implement a solution that consists of following components:
 5. Programming Language: PHP
 6. Code Repository: GitHub
 
+## Step 1 - Prepare NFS Server
+
+## Step 2 - Configure The Database Server
+## Step 3 - Prepare The Web Servers
+
 
 
 
