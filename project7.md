@@ -495,6 +495,16 @@ In this project, we will implement a tooling website solution which makes access
 
 ![Tooling Page](./images/tooling-page.jpg)
 
+22. Create in MySQL a new admin user with username: myuser and password: password:
+
+` INSERT INTO `users` (`id`, `username`, `password`, `email`, `user_type`, `status`) VALUES (2, 'myuser', '5f4dcc3b5aa765d61d8327deb882cf99', 'user@mail.com', 'admin', '1');`
+
+![New DB User Status](./images/DB-new-user-status.jpg)
+
+![Myuser Web Browser Status](./images/myuser-web-browser-status.jpg)
+
+
+
 
 
 
